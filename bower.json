@@ -1,0 +1,21 @@
+{
+  "name": "tubular",
+  "description": "Displays videos as background to webpages",
+  "main": "dist/tubular.min.js",
+  "authors": [
+    "Sean McCambridge",
+    "Roelof Roos <roelof@schakelmarketeers.nl>"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/SchakelMarketeers/tubular",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "^2.0.0 || ^3.0.0"
+  }
+}
