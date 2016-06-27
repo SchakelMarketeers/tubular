@@ -11,6 +11,14 @@ $('.my-wrapper-element').tubular({
 });
 ```
 
+## Installing
+
+There are several ways to install tubular.
+
+ - Using bower: (`bower require --save schakel-tubular`)
+ - By downloading [a release][releases]
+ - By cloning the repo (`git clone ...`)
+
 ## Tubular's *hello world*
 
 Assuming you're happy with the default options and you use a wrapper div with
@@ -72,4 +80,5 @@ made to your CSS in IE7.
 
 [license]: LICENSE
 [ico-license]: http://img.shields.io/github/license/schakelmarketeers/tubular.svg?style=flat
+[releases]: https://github.com/SchakelMarketeers/tubular/releases
 
