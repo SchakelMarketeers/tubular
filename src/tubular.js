@@ -32,6 +32,9 @@
         pageBackground: true // Change to false if using for an element only.
     };
 
+    // Set to false just before seeking
+    var initialFire = 0;
+
     // methods
 
     var tubular = function(node, options) { // should be called on the wrapper div
@@ -112,7 +115,7 @@
             e.target.seekTo(options.start);
             e.target.playVideo();
 
-            $node.trigger('tubular.start');
+            initialFire = 1;
         };
 
         var onPlayerStateChange = function(state) {
@@ -128,6 +131,13 @@
                 } else {
                     $node.trigger('tubular.end');
                 }
+            }
+
+            if (state.data === 3 && initialFire === 1) {
+                initialFire = 2;
+            } else if (state.data === 1 && initialFire === 2) {
+                initialFire = 3;
+                $node.trigger('tubular.start');
             }
         };
 
