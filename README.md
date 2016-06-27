@@ -76,7 +76,7 @@ $('element').tubular({
 The following events are fired from the element that the tubular was
 instantiated on:
 
- - `tubuar.start` is fired when the playback is started for the first time.
+ - `tubular.start` is fired when the playback is started for the first time.
  - `tubular.end` is fired when the video has ended and won't loop
  - `tubular.restart` is fired when the video has ended and is about to loop
 
