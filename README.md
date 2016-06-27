@@ -71,6 +71,15 @@ $('element').tubular({
 });
 ```
 
+## Events
+
+The following events are fired from the element that the tubular was
+instantiated on:
+
+ - `tubuar.start` is fired when the playback is started for the first time.
+ - `tubular.end` is fired when the video has ended and won't loop
+ - `tubular.restart` is fired when the video has ended and is about to loop
+
 ## A word of caution
 Tubular does not design your website for you. It works here thanks to alpha
 transparency on these gray boxes and the png logo on the top left. I built

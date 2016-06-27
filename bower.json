@@ -1,6 +1,5 @@
 {
   "name": "schakel-tubular",
-  "version": "1.1.0",
   "description": "Displays videos as background to webpages",
   "main": "dist/tubular.min.js",
   "authors": [
