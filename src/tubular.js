@@ -7,13 +7,13 @@
  * @license MIT License
  */
 
-(function ($, window) {
+(function($, window) {
 
     'use strict';
 
     // defaults
     var defaults = {
-        ratio: 16/9, // usually either 4/3 or 16/9 -- tweak as needed
+        ratio: 16 / 9, // usually either 4/3 or 16/9 -- tweak as needed
         videoId: 'ZCAnLxRvNNc', // toy robot in space is a good default, no?
         mute: true,
         repeat: true,
@@ -41,7 +41,13 @@
         options = $.extend({}, defaults, options);
 
         // build container
-        var tubularContainer = $('<div id="tubular-container" style="overflow: hidden; position: fixed; z-index: 1; width: 100%; height: 100%"><div id="tubular-player" style="position: absolute"></div></div><div id="tubular-shield" style="width: 100%; height: 100%; z-index: 2; position: absolute; left: 0; top: 0;"></div>');
+        var tubularContainer = $([
+            '<div id="tubular-container" style="overflow:',
+            'hidden; position: fixed; z-index: 1; width: 100%; height: 100%',
+            '"><div id="tubular-player" style="position: absolute"></div>',
+            '</div><div id="tubular-shield" style="width: 100%; height: 100%;',
+            'z-index: 2; position: absolute; left: 0; top: 0;"></div>'
+        ].join(''));
 
         // set up css prereq's, inject tubular container and set up wrapper defaults
         tubularContainer.insertBefore($node);
@@ -122,7 +128,7 @@
                     controls: 0,
                     showinfo: 0,
                     modestbranding: 1,
-                    iv_load_policy: 3,
+                    iv_load_policy: 3, //jscs:ignore
                     wmode: 'transparent',
                     vq: options.videoQuality,
                     rel: options.relatedVideos,
@@ -141,27 +147,40 @@
             resize();
         });
 
-        $('body').on('click','.' + options.playButtonClass, function(e) { // play button
+        // Play
+        $('.' + options.playButtonClass).on('click', function(e) {
             e.preventDefault();
             player.playVideo();
-        }).on('click', '.' + options.pauseButtonClass, function(e) { // pause button
+        });
+
+        // Pause
+        $('.' + options.pauseButtonClass).on('click', function(e) {
             e.preventDefault();
             player.pauseVideo();
-        }).on('click', '.' + options.muteButtonClass, function(e) { // mute button
+        });
+
+        // Mute
+        $('.' + options.muteButtonClass).on('click', function(e) {
             e.preventDefault();
             if (player.isMuted()) {
                 player.unMute();
             } else {
                 player.mute();
             }
-        }).on('click', '.' + options.volumeDownClass, function(e) { // volume down button
+        });
+
+        // Volume down
+        $('.' + options.volumeDownClass).on('click', function(e) {
             e.preventDefault();
             var currentVolume = player.getVolume();
             if (currentVolume < options.increaseVolumeBy) {
                 currentVolume = options.increaseVolumeBy;
             }
             player.setVolume(currentVolume - options.increaseVolumeBy);
-        }).on('click', '.' + options.volumeUpClass, function(e) { // volume up button
+        });
+
+        // Volume up
+        $('.' + options.volumeUpClass).on('click', function(e) {
             e.preventDefault();
             if (player.isMuted()) {
                 player.unMute(); // if mute is on, unmute
@@ -174,17 +193,13 @@
         });
     };
 
-    // load yt iframe js api
+    // Load YT Iframe API (always via TLS)
+    $('<script src="https://www.youtube.com/iframe_api"></script>')
+        .appendTo('body');
 
-    var tag = document.createElement('script');
-    tag.src = "https://www.youtube.com/iframe_api";
-    var firstScriptTag = document.getElementsByTagName('script')[0];
-    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-
-    // create plugin
-
-    $.fn.tubular = function (options) {
-        return this.each(function () {
+    // Register plugin
+    $.fn.tubular = function(options) {
+        return this.each(function() {
             if (!$.data(this, 'tubular_instantiated')) { // let's only run one
                 $.data(this, 'tubular_instantiated',
                 tubular(this, options));
