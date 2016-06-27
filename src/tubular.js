@@ -41,17 +41,20 @@
         options = $.extend({}, defaults, options);
 
         // build container
-        var tubularContainer = $([
-            '<div id="tubular-container" style="overflow:',
-            'hidden; position: fixed; z-index: 1; width: 100%; height: 100%',
-            '"><div id="tubular-player" style="position: absolute"></div>',
-            '</div><div id="tubular-shield" style="width: 100%; height: 100%;',
+        var tubularContainer = $(
+            '<div id="tubular-container" style="overflow:' +
+            'hidden; position: fixed; z-index: 1; width: 100%; height: 100%">' +
+            '<div id="tubular-player" style="position: absolute"></div></div>' +
+            '<div id="tubular-shield" style="width: 100%; height: 100%;' +
             'z-index: 2; position: absolute; left: 0; top: 0;"></div>'
-        ].join(''));
+        );
 
         // set up css prereq's, inject tubular container and set up wrapper defaults
         tubularContainer.insertBefore($node);
-        $node.css({position: 'relative', 'z-index': options.wrapperZIndex});
+        $node.css({
+            position: 'relative',
+            'z-index': options.wrapperZIndex
+        });
 
         // Resize function updates width, height and offset of player after
         // resize/init
@@ -108,12 +111,23 @@
 
             e.target.seekTo(options.start);
             e.target.playVideo();
+
+            $node.trigger('tubular.start');
         };
 
         var onPlayerStateChange = function(state) {
-            // if video ended and repeat option is set true
-            if (state.data === 0 && options.repeat) {
-                player.seekTo(options.start); // restart
+            // if video ended, act accordingly
+            if (state.data === 0) {
+
+                // If repeating, repeat
+                if (options.repeat) {
+                    $node.trigger('tubular.restart');
+                    player.seekTo(options.start);
+
+                // Or fire event and stop
+                } else {
+                    $node.trigger('tubular.end');
+                }
             }
         };
 
@@ -129,10 +143,10 @@
                     showinfo: 0,
                     modestbranding: 1,
                     iv_load_policy: 3, //jscs:ignore
+                    cc_load_policy: 0, //jscs:ignore
                     wmode: 'transparent',
                     vq: options.videoQuality,
                     rel: options.relatedVideos,
-                    start: options.start,
                     end: options.end,
                     origin: document.location.host
                 },
