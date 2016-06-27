@@ -13,7 +13,7 @@ $('.my-wrapper-element').tubular({
 
 ## Installing
 
-There are several ways to install tubular.
+You can install tubular in 3 ways:
 
  - Using bower: (`bower require --save schakel-tubular`)
  - By downloading [a release][releases]
@@ -21,16 +21,34 @@ There are several ways to install tubular.
 
 ## Tubular's *hello world*
 
-Assuming you're happy with the default options and you use a wrapper div with
-the id of *wrapper*, you simply attach to your wrapper div and specify the
-video you want to load (see below), and *Presto!* ... kittens in your website
-background!
+The simplest way to incorporate tubular is shown below. The example assumes
+you're happy with the default options and will show you kittens in no time!
 
-```js
-$('#wrapper').tubular({
-    videoId: '0Bmhjf0rKe8'
-});
+```html
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+    </head>
+    <body>
+        <div id="wrapper">
+            <h1>Hello world!</h1>
+            <p>Lorem ipsum kittens</p>
+        </div>
+
+        <script src="path/to/jquery.min.js"></script>
+        <script src="path/to/tubular.min.js"></script>
+        <script>
+        $(document).ready(function(){
+            $('#wrapper').tubular({
+                videoId: '0Bmhjf0rKe8'
+            });
+        });
+        </script>
+    </body>
+</html>
 ```
+
 
 ## Options and defaults
 ```js
@@ -48,6 +66,8 @@ $('element').tubular({
     volumeDownClass: 'tubular-volume-down'
     increaseVolumeBy: 10 // increment value; volume range is 1-100
     start: 0 // starting position in seconds
+    end: false, // Set to an int to end the video at the given time.
+    pageBackground: true // Set to false to align to element, true to align to body.
 });
 ```
 
@@ -60,7 +80,7 @@ there are some tasteful ways to use tubular and many, many more not so tasteful
 ways to use it. With great power comes great responsibility. The kitten example
 above is not to be taken seriously! :-)
 
-# Remember
+## Assumptions by Tubular
 Tubular does one thing well. It takes a single video from YouTube at injects it
 as a full-screen background on a website. It scales the video, offsets the
 video and provides some basic controls for the video.  That's it.

@@ -28,7 +28,8 @@
         start: 0,
         end: false,
         videoQuality: 'hd1080',
-        relatedVideos: 0
+        relatedVideos: 0,
+        pageBackground: true // Change to false if using for an element only.
     };
 
     // methods
@@ -49,11 +50,21 @@
         // Resize function updates width, height and offset of player after
         // resize/init
         var resize = function() {
-            var width = $(window).width(),
-                pWidth, // player width, to be defined
-                height = $(window).height(),
-                pHeight, // player height, tbd
-                $tubularPlayer = $('#tubular-player');
+            var width = 0;
+            var height = 0;
+
+            if (options.pageBackground) {
+                width = $(window).width();
+                height = $(window).height();
+            } else {
+                width = $node.width();
+                height = $node.height();
+            }
+
+            var pWidth; // player width, to be defined
+            var pHeight; // player height, tbd
+
+            var $tubularPlayer = $('#tubular-player');
 
             // when screen aspect ratio differs from video, video must center
             // and underlay one dimension
@@ -115,7 +126,8 @@
                     wmode: 'transparent',
                     vq: options.videoQuality,
                     rel: options.relatedVideos,
-                    end: options.end
+                    end: options.end,
+                    origin: document.location.host
                 },
                 events: {
                     onReady: onPlayerReady,
