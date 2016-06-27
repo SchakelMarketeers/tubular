@@ -132,6 +132,7 @@
                     wmode: 'transparent',
                     vq: options.videoQuality,
                     rel: options.relatedVideos,
+                    start: options.start,
                     end: options.end,
                     origin: document.location.host
                 },
